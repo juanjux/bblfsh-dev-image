@@ -10,7 +10,7 @@ docker build -t bblfshdev .
 ## Running the image with a setup script
 
 ```bash
-docker run -v $(pwd):/scripts --privileged -it --rm bblfsh bash /scripts/run.sh
+docker run -v $(pwd):/scripts --privileged -it --rm bblfshdev bash /scripts/run.sh
 ```
 
 This would map the current directory inside the docker image as `/scripts` and run the `run.sh` script (that obviously should be
