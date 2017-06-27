@@ -34,11 +34,13 @@ RUN cd /root && \
     go get github.com/bblfsh/java-driver/... && \
     go get github.com/bblfsh/server/... && \
     cd $GOPATH/src/github.com/bblfsh/server/cmd/bblfsh && \
-    go build                                                          
+    go build && \
+    chown -R 1000 $GOPATH/src/github.com/bblfsh/python-driver && \
+    chown -R 1000 $GOPATH/src/github.com/bblfsh/java-driver
 
 # The drivers "make build" doesnt work as root thus the prebblfsh user
 # that will be needed in the run script to do the drivers "make build"
-RUN useradd prebblfsh && \
+RUN useradd prebblfsh -u 1000 && \
     chgrp -R docker /root && \
     chmod -R g+rwx /root && \
     gpasswd -a prebblfsh docker

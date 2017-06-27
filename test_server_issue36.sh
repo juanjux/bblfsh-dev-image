@@ -28,7 +28,7 @@ export BUILD_UID=1000                                             && \
 make build                                                        && \
 docker tag `docker images --quiet|head -1` bblfsh/python-driver:latest && \
 
-# Real testing starts here ~~~~~~~~~~~~
+## Real testing starts here ~~~~~~~~~~~~
 
 echo "Build and run the server..."
 cd $GOPATH/src/github.com/bblfsh/server/cmd/bblfsh && \
@@ -40,23 +40,19 @@ cd /root                                                          && \
 git clone https://github.com/vmarkovtsev/bblfsh.client-python.git && \
 cd /root/bblfsh.client-python                                     && \
 git checkout remotes/origin/main-change                           && \
-pip3 install -U .                                                 
+pip3 install .                                                    && \
+
+python3 -m bblfsh --disable-bblfsh-autorun /scripts/boom.py
+echo $?
 
 echo "Testing for 500 iterations with a sleep of 5 seconds"
-for i in `seq 1 500`;
+for i in `seq 1 1000`;
 do
-    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > 1.txt &
-    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > 2.txt &
-    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > 3.txt &
-    sleep 5
-    diff 1.txt 2.txt > /dev/null
-    D1=$?
-    diff 2.txt 3.txt > /dev/null
-    D2=$?
-    if [ "$D1" == 1 ] || [ "$D2" == 1 ]; then
-        echo "Different files!"
-        exit 1
-    fi
-    rm 1.txt 2.txt 3.txt
+    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > /dev/null 
+    echo $?
+    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > /dev/null 
+    echo $?
+    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > /dev/null 
+    echo $?
     echo "Finished iteration $i"
 done
