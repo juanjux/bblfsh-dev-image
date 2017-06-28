@@ -32,8 +32,8 @@ docker tag `docker images --quiet|head -1` bblfsh/python-driver:latest && \
 
 echo "Build and run the server..."
 cd $GOPATH/src/github.com/bblfsh/server/cmd/bblfsh && \
-./bblfsh server --transport=docker-daemon&    
-sleep 2                                            && \
+./bblfsh server --transport=docker-daemon > /root/server_out.log 2> /root/server_err.log &    
+sleep 2 && \
 
 echo "Cloning and installing specific client-python branch..."
 cd /root                                                          && \

@@ -32,7 +32,7 @@ docker tag `docker images --quiet|head -1` bblfsh/python-driver:latest && \
 
 echo "Build and run the server..."
 cd $GOPATH/src/github.com/bblfsh/server/cmd/bblfsh && \
-./bblfsh server --transport=docker-daemon&    
+./bblfsh server --transport=docker-daemon > /root/server_out.log 2> /root/server_err.log &    
 sleep 2                                            && \
 
 echo "Cloning and installing specific client-python branch..."
@@ -55,8 +55,10 @@ do
     D2=$?
     if [ "$D1" == 1 ] || [ "$D2" == 1 ]; then
         echo "Different files!"
-        exit 1
+        break
     fi
+    echo `ls -sh *txt`; echo `head 1.txt`
     rm 1.txt 2.txt 3.txt
     echo "Finished iteration $i"
 done
+bash

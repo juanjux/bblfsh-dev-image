@@ -7,7 +7,7 @@ RUN mkdir /root/go
 RUN apt-get update && apt-get install -y software-properties-common apt-transport-https wget \
     libglib2.0-dev gnupg e2fslibs-dev libgpg-error-dev libgpgme11-dev libassuan-dev \
     git gettext-base python3-pip vim gpgsm libfuse-dev fuse bison dh-autoreconf \
-    liblzma-dev
+    liblzma-dev tmux
 RUN apt-add-repository 'deb https://apt.dockerproject.org/repo ubuntu-yakkety main' && \
     apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D && \
     apt-get update && apt-get install -y docker-engine
