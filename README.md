@@ -21,7 +21,9 @@ example script for a specific issue test has been provided. If you need to run o
 test other stuff, change the run.sh script or add other scripts and run them
 instead but remember that you must start the Docker service and `make build` the
 drivers you need in that script, just like in the example provided, so the driver
-docker images are created. This has to be done on the script provided to the
+docker images are created. 
+
+This has to be done on the script provided to the
 `docker run` command because [current versions of Docker doesn't allow to run 
 privileged commands](https://github.com/moby/moby/issues/1916) so the building of Docker
-images (the Python drivers) inside Docker has to be done on the run script.
+images (the Python drivers) inside Docker has to be done there.
