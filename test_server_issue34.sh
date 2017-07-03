@@ -42,16 +42,16 @@ cd /root/bblfsh.client-python                                     && \
 git checkout remotes/origin/main-change                           && \
 pip3 install -U .                                                 
 
-echo "Testing for 500 iterations with a sleep of 5 seconds"
+echo "Testing for 500 iterations with a sleep of 6 seconds"
 for i in `seq 1 500`;
 do
     python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > 1.txt &
     python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > 2.txt &
     python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > 3.txt &
-    sleep 5
-    diff 1.txt 2.txt > /dev/null
+    sleep 6
+    diff 1.txt 2.txt
     D1=$?
-    diff 2.txt 3.txt > /dev/null
+    diff 2.txt 3.txt
     D2=$?
     if [ "$D1" == 1 ] || [ "$D2" == 1 ]; then
         echo "Different files!"

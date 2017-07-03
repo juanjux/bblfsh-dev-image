@@ -42,17 +42,8 @@ cd /root/bblfsh.client-python                                     && \
 git checkout remotes/origin/main-change                           && \
 pip3 install .                                                    && \
 
-python3 -m bblfsh --disable-bblfsh-autorun /scripts/boom.py
-echo $?
-
-echo "Testing for 500 iterations with a sleep of 5 seconds"
-for i in `seq 1 1000`;
-do
-    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > /dev/null 
-    echo $?
-    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > /dev/null 
-    echo $?
-    python3 -m bblfsh --disable-bblfsh-autorun bblfsh/github/com/bblfsh/sdk/__init__.py bblfsh/github/com/bblfsh/sdk/protocol/__init__.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2.py  bblfsh/github/com/bblfsh/sdk/protocol/generated_pb2_grpc.py  bblfsh/github/com/bblfsh/sdk/uast/__init__.py  bblfsh/github/com/bblfsh/sdk/uast/generated_pb2.py > /dev/null 
-    echo $?
-    echo "Finished iteration $i"
-done
+python3 -m bblfsh --disable-bblfsh-autorun /scripts/fixtures/issue36_toobig_hangs.py
+echo "Before the bugfix, the second request after the previous one failed, it would hang"
+python3 -m bblfsh --disable-bblfsh-autorun /scripts/fixtures/issue36_toobig_hangs.py
+echo "If you see this message, it didn't hang. Opening a shell to let you tinkle around"
+bash
